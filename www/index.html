@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="lib/onsen/css/custom/fonts/flaticon.css">
     <link rel="stylesheet" type="text/css" href="lib/onsen/css/custom/default.css">
     <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+	
+	<link rel="stylesheet" type="text/css" href="css/custom.css"
 
     <title>Capacity</title>
 
@@ -216,17 +218,17 @@
     <script src="cordova.js"></script>
     <script src="scripts/index.js"></script>
 
-    <ons-tabbar>
+    <ons-tabbar class="tabbar-color">
         <ons-tab active="true" page="home.html">
-            <div class="tab">
-                <ons-icon icon="ion-home" class="tab-icon"></ons-icon>
-                <div class="tab-label">Hur lyckades du igår?</div>
-            </div>
+				<div class="tab">
+					<!-- <ons-icon icon="ion-home" class="tab-icon"></ons-icon> -->
+					<div class="tab-label">Hur lyckades<br> du igår?</div>
+				</div>	
         </ons-tab>
 
         <ons-tab page="settings.html">
             <div class="tab">
-                <ons-icon icon="ion-gear-a" class="tab-icon"></ons-icon>
+                 <!-- <ons-icon icon="ion-gear-a" class="tab-icon"></ons-icon> -->
                 <div class="tab-label">Trend</div>
             </div>
         </ons-tab>
@@ -234,12 +236,14 @@
 
     <ons-template id="home.html">
         <ons-navigator>
+		
+
             <ons-page>
-                <ons-toolbar>
-                    <div class="left"></div>
-                    <div class="center">Hur lyckades du igår?</div>
-                    <div class="right"></div>
-                </ons-toolbar>
+				
+					
+					<div class="headline">
+						<div class="header-text">Hur Lyckades<br> du Igår?</div>
+					</div>				
 
                 <ons-list class="range-list">
 
