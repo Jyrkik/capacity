@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="lib/onsen/css/custom/default.css">
     <link rel="stylesheet" href="lib/angular/angular-csp.css" />
 	
-	<link rel="stylesheet" type="text/css" href="css/custom.css"
+	<link rel="stylesheet" type="text/css" href="css/custom.css" />
 
     <title>Capacity</title>
 
@@ -38,7 +38,7 @@
                 relaxAmount: 4
             };
 
-            var totalCapacity = 0;
+            var totalCapacity = 64;
 
             $scope.calculateCapacity = function () {
                 totalCapacity =
@@ -61,7 +61,6 @@
             $scope.storeCapacity = function() {
                 $scope.capacityStorage[0].values.push({x: $scope.capacityStorage[0].values.length - 1, y: totalCapacity});
                 $window.localStorage.setItem('CAPACITY_STORAGE', angular.toJson($scope.capacityStorage));
-                ons.notification.alert({ message: 'stored!' });
             };
 
             $scope.clearData = function() {
@@ -90,15 +89,17 @@
                     var svg = element.find('svg'),
                             chart;
 
-                    var draw_background_fill = function (height, color) {
-                        var low_limit = chart.yAxis.scale()(height);
+                    var draw_background_fill = function (from, to, color) {
+                        var low_limit = chart.yAxis.scale()(to);
+                        var upper_limit = chart.yAxis.scale()(from);
+
                         var rect_background = document.getElementsByClassName("nv-background")[0].firstChild;
 
                         d3.select('.nv-groups').append("rect")
                                 .attr("x", 0)
                                 .attr("y", low_limit)
                                 .attr("width", rect_background.getAttribute('width'))
-                                .attr("height", rect_background.getAttribute('height') - low_limit)
+                                .attr("height", upper_limit - low_limit)
                                 .attr("fill", color);
                     };
 
@@ -108,9 +109,10 @@
                                 .datum(scope.data)
                                 .call(chart);
 
-                        draw_background_fill(126, "rgba(66,139,202, 0.2)");
-                        draw_background_fill(346, "rgba(100,139,100, 0.2)");
-                        draw_background_fill(513, "rgba(202,139,66, 0.2)");
+                        draw_background_fill(26, 125, "rgba(56,169,219, 0.3)");
+                        draw_background_fill(126, 345, "rgba(56,183,44, 0.3)");
+                        draw_background_fill(346, 513, "rgba(185,120,35, 0.3)");
+                        draw_background_fill(514, 1000, "rgba(186,35,117, 0.3)");
                     };
 
                     scope.$watch(function() { return angular.toJson(scope.data); }, function() {
@@ -335,10 +337,10 @@
                     <ons-list-item>
                         <div class="battery-container" ng-click="storeCapacity()">
                             <div class="animate-switch-container" ng-switch on="capacity">
-                                <img ng-switch-when="active" src="images/battery-01.svg" width="120px" />
-                                <img ng-switch-when="feeling" src="images/battery-02.svg" width="120px" />
-                                <img ng-switch-when="logical" src="images/battery-03.svg" width="120px" />
-                                <img ng-switch-default src="images/battery-04.svg" width="120px" />
+                                <img ng-switch-when="active" src="images/battery-01.svg" width="240px" />
+                                <img ng-switch-when="feeling" src="images/battery-02.svg" width="240px" />
+                                <img ng-switch-when="logical" src="images/battery-03.svg" width="240px" />
+                                <img ng-switch-default src="images/battery-04.svg" width="240px" />
                             </div>
                         </div>
                     </ons-list-item>
@@ -352,26 +354,14 @@
     <ons-template id="settings.html">
         <ons-page>
 			<div class="headline-trend">
-				<div class="header-text">Trend</div>
+				<div class="header-text" ng-click="clearData()">Trend</div>
 			</div>				
-
 
             <ons-list modifier="inset" class="settings-list">
                 <ons-list-item>
-                    <line-chart data="capacityStorage" height="300px"></line-chart>
+                    <line-chart data="capacityStorage" height="400px"></line-chart>
                 </ons-list-item>
             </ons-list>
-
-            <br>
-
-            <ons-list modifier="inset" class="settings-list">
-                <ons-list-item modifier="tappable" ng-click="clearData()">
-                    <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
-                    Radera data
-                </ons-list-item>
-            </ons-list>
-
-            <br>
 
         </ons-page>
     </ons-template>
