@@ -335,10 +335,10 @@
                     <ons-list-item>
                         <div class="battery-container" ng-click="storeCapacity()">
                             <div class="animate-switch-container" ng-switch on="capacity">
-                                <i ng-switch-when="active" class="animate-switch capacity-active"></i>
-                                <i ng-switch-when="feeling" class="animate-switch capacity-feeling"></i>
-                                <i ng-switch-when="logical" class="animate-switch capacity-logical"></i>
-                                <i ng-switch-default class="animate-switch capacity-physical"></i>
+                                <img ng-switch-when="active" src="images/battery-01.svg" width="120px" />
+                                <img ng-switch-when="feeling" src="images/battery-02.svg" width="120px" />
+                                <img ng-switch-when="logical" src="images/battery-03.svg" width="120px" />
+                                <img ng-switch-default src="images/battery-04.svg" width="120px" />
                             </div>
                         </div>
                     </ons-list-item>

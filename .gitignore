@@ -5,9 +5,7 @@
 *.dex
 *.class
 
-Android/bin/
-Android/gen/
-Android/assets/
+platforms/**
 
 bin/
 gen/
