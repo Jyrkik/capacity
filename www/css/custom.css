@@ -5,16 +5,17 @@
 
 /* Hur lyckades du igår? */
 
-
-.headline	{width:100%;margin:0px;padding:40px 0px 30px 0px;text-align:center;z-index: -10;
+.ic-logo	{width:40px;float:left;}
+.headline	{width:100%;margin:0px;height:120px;text-align:center;z-index: -10;line-height:120px;
+/* background gradient */
 background: rgb(168,13,114); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(168,13,114,1) 0%, rgba(250,27,187,1) 69%, rgba(173,19,124,1) 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(-45deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(135deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a80d72', endColorstr='#ad137c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-.header-text		{color:white;    font-family: Lato, Helvetica, Sans-Sherif;    font-size: 27px;    text-transform: uppercase;}
-
+.header-text		{text-align:left;color:white;font-family: Lato, Helvetica, Sans-Sherif; font-size: 27px;text-transform: uppercase;  display: inline-block;vertical-align: middle;line-height: 30px;}
+.ic-logo			{float:left;width:50px;padding: 8px 10px 0px 0px;}
 
 
 /* List menu */
@@ -35,7 +36,7 @@ ons-tab:focus				{background-color:red;}
 
 /* Trend page */
 
-.headline-trend	{width:100%;margin:0px;padding:25px 0px 20px 0px;text-align:center;z-index: -10;
+.headline-trend	{width:100%;margin:0px;padding:40px 0px 30px 25px;text-align:center;z-index: -10;
 background: rgb(168,13,114); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(168,13,114,1) 0%, rgba(250,27,187,1) 69%, rgba(173,19,124,1) 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(-45deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -43,7 +44,6 @@ background: linear-gradient(135deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a80d72', endColorstr='#ad137c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 }
-.header-text		{color:white;    font-family: Lato, Helvetica, Sans-Sherif;    font-size: 27px;    text-transform: uppercase;}
 
 
 
