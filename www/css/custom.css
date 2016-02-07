@@ -1,0 +1,51 @@
+
+/* Custom Styling */
+
+@font-face {font-family: Lato;src: url(../fonts/Lato-Regular.ttf);}
+
+/* Hur lyckades du igår? */
+
+
+.headline	{width:100%;margin:0px;padding:40px 0px 30px 0px;text-align:center;z-index: -10;
+background: rgb(168,13,114); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(168,13,114,1) 0%, rgba(250,27,187,1) 69%, rgba(173,19,124,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a80d72', endColorstr='#ad137c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.header-text		{color:white;    font-family: Lato, Helvetica, Sans-Sherif;    font-size: 27px;    text-transform: uppercase;}
+
+
+
+/* List menu */
+.list__item 					{min-height: 60px !important;}
+.range-list 					{  text-align: center;}
+.range-wrapper .range 		{  margin-top: 7px;  width: 100%;}
+ons-icon 						{  opacity: 0.8;}
+.lower 						{  opacity: 0.5;}
+.notification 				{margin-top:11px !important;}
+
+
+ons-tab:focus				{background-color:red;}
+.tab-bar					{background-color:#fa1bbb;color:white; }
+.tab-icon , .tab-icon, :checked + .tab-bar__button	{color:white;}
+.tab-label					{color:white;font-family: Lato, Helvetica, Sans-Sherif !important;font-size:14px !important;line-height:14px !important;}
+:checked + .tab-bar__button 	{background-color:#353535;color:#fa1bbb;}
+
+
+/* Trend page */
+
+.headline-trend	{width:100%;margin:0px;padding:25px 0px 20px 0px;text-align:center;z-index: -10;
+background: rgb(168,13,114); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(168,13,114,1) 0%, rgba(250,27,187,1) 69%, rgba(173,19,124,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a80d72', endColorstr='#ad137c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.header-text		{color:white;    font-family: Lato, Helvetica, Sans-Sherif;    font-size: 27px;    text-transform: uppercase;}
+
+
+
+.settings-list			 {margin-top:0px !important;}
+.list--inset			{margin-top:0px!;margin-left:0px! important;margin-right:0px! important;border:0px !important;}
