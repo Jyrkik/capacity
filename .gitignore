@@ -1,5 +1,6 @@
 *.apk
 *.ap_
+.idea/workspace.xml
 
 *.dex
 *.class

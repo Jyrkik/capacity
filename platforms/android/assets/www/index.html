@@ -88,21 +88,27 @@
                     var svg = element.find('svg'),
                             chart;
 
-                    // This function is called when the data is changed.
-                    var update = function() {
-                        d3.select(svg[0])
-                                .datum(scope.data)
-                                .call(chart);
-
-                        var low_limit = chart.yAxis.scale()(200);
-                        var rect_background = document.getElementsByClassName("nvd3")[0].firstChild.firstChild;
+                    var draw_background_fill = function (height, color) {
+                        var low_limit = chart.yAxis.scale()(height);
+                        var rect_background = document.getElementsByClassName("nv-background")[0].firstChild;
 
                         d3.select('.nv-groups').append("rect")
                                 .attr("x", 0)
                                 .attr("y", low_limit)
                                 .attr("width", rect_background.getAttribute('width'))
                                 .attr("height", rect_background.getAttribute('height') - low_limit)
-                                .attr("fill", "rgba(66,139,202, 0.2)");
+                                .attr("fill", color);
+                    };
+
+                    var update = function() {
+
+                        d3.select(svg[0])
+                                .datum(scope.data)
+                                .call(chart);
+
+                        draw_background_fill(126, "rgba(66,139,202, 0.2)");
+                        draw_background_fill(346, "rgba(100,139,100, 0.2)");
+                        draw_background_fill(513, "rgba(202,139,66, 0.2)");
                     };
 
                     scope.$watch(function() { return angular.toJson(scope.data); }, function() {
@@ -111,17 +117,15 @@
                         }
                     });
 
-                    // The chart can not be rendered at once, since the chart
-                    // creation is asynchronous.
                     scope.$on('chartinit', update);
 
                     nv.addGraph(function() {
-                        // This code is the same as the example before.
+
                         chart = nv.models.lineChart()
                                 .showLegend(false)
                                 .showYAxis(true)
                                 .showXAxis(false)
-                                .forceY([0,1000]);
+                                .forceY([64,1000]);
 
                         chart.xAxis
                                 .axisLabel('x')
@@ -129,14 +133,14 @@
 
                         chart.yAxis
                                 .axisLabel('Capacity')
-                                .tickFormat(d3.format('.2f'));
+                                .tickFormat(d3.format('d'));
+
+                        chart.legend.margin({top: 5, right: 0, bottom: 5, left: 0});
 
                         nv.utils.windowResize(function() {
                             chart.update()
                         });
 
-                        // Emit an event so we can know that the
-                        // chart has been initialized.
                         scope.$emit('chartinit');
 
                         return chart;
