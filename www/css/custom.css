@@ -13,6 +13,8 @@ background: -moz-linear-gradient(-45deg,  rgba(168,13,114,1) 0%, rgba(250,27,187
 background: -webkit-linear-gradient(-45deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(135deg,  rgba(168,13,114,1) 0%,rgba(250,27,187,1) 69%,rgba(173,19,124,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a80d72', endColorstr='#ad137c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
 }
 .header-text		{text-align:left;color:white;font-family: Lato, Helvetica, Sans-Sherif; font-size: 27px;text-transform: uppercase;  display: inline-block;vertical-align: middle;line-height: 30px;}
 .ic-logo			{float:left;width:50px;padding: 8px 10px 0px 0px;}
