@@ -40,6 +40,12 @@
 
             var totalCapacity = 64;
 
+            ons.ready(function() {
+                ons.createPopover('popover.html', {parentScope: $scope}).then(function(popover) {
+                    $scope.popover = popover;
+                });
+            });
+
             $scope.calculateCapacity = function () {
                 totalCapacity =
                         ((Number($scope.capacityModel.nutritionQuality) + Number($scope.capacityModel.relationshipQuality)) / 2) *
@@ -73,7 +79,7 @@
 
             $scope.clearData = function() {
                 $window.localStorage.removeItem('CAPACITY_STORAGE');
-            }
+            };
 
         });
 
@@ -253,24 +259,24 @@
             </div>
         </ons-tab>
     </ons-tabbar>
-
+    <ons-template id="popover.html">
+        <ons-popover direction="down left" cancelable>
+            <div style="text-align: center;">
+                <p>Matkvalitét</p>
+            </div>
+        </ons-popover>
+    </ons-template>
     <ons-template id="home.html">
         <ons-navigator>
-		
-
             <ons-page>
-				
-					
-					<div class="headline">
-						<span class="header-text"<div ><img class="ic-logo" src="images/ic-logo.svg">Hur Lyckades<br> du Igår?</div></span>
-					</div>				
-
+                <div class="headline">
+                    <span class="header-text"><div><img class="ic-logo" src="images/ic-logo.svg">Hur Lyckades<br> du Igår?</div></span>
+                </div>
                 <ons-list class="range-list">
-
                     <ons-list-item>
                         <ons-row>
                             <ons-col width="40px">
-                                <ons-icon icon="fa-cutlery" class="lower"></ons-icon>
+                                <ons-icon icon="fa-cutlery" class="lower" ng-click="popover.show($event)"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.nutritionQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
