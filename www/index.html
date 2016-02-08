@@ -59,7 +59,15 @@
             };
 
             $scope.storeCapacity = function() {
-                $scope.capacityStorage[0].values.push({x: $scope.capacityStorage[0].values.length - 1, y: totalCapacity});
+
+                var today = new Date();
+                if ($scope.capacityStorage[0].values.length > 0){
+                    $scope.capacityStorage[0].values.forEach(function(value){
+                        value.x  = new Date(value.x - 24*1000*60*60);
+                    });
+                }
+
+                $scope.capacityStorage[0].values.push({x: today, y: totalCapacity});
                 $window.localStorage.setItem('CAPACITY_STORAGE', angular.toJson($scope.capacityStorage));
             };
 
@@ -128,18 +136,24 @@
                         chart = nv.models.lineChart()
                                 .showLegend(false)
                                 .showYAxis(true)
-                                .showXAxis(false)
+                                .showXAxis(true)
                                 .forceY([64,1000]);
 
                         chart.xAxis
-                                .axisLabel('x')
-                                .tickFormat(d3.format('.2f'));
+                                .axisLabel('Date')
+                                .rotateLabels(-90)
+                                .tickFormat(function(d) {
+                                    return d3.time.format('%d-%m')(new Date(d))
+                                });
 
                         chart.yAxis
                                 .axisLabel('Capacity')
                                 .tickFormat(d3.format('d'));
 
-                        chart.legend.margin({top: 5, right: 0, bottom: 5, left: 0});
+                        chart.legend.margin({top: 5, right: 0, bottom: 10, left: 0});
+                        chart.margin({top:10,bottom:100});
+
+                        chart.xScale(d3.time.scale());
 
                         nv.utils.windowResize(function() {
                             chart.update()
@@ -359,7 +373,7 @@
 
             <ons-list modifier="inset" class="settings-list">
                 <ons-list-item>
-                    <line-chart data="capacityStorage" height="400px"></line-chart>
+                    <line-chart data="capacityStorage" height="420px"></line-chart>
                 </ons-list-item>
             </ons-list>
 
