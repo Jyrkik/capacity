@@ -244,7 +244,21 @@
     <script src="cordova.js"></script>
     <script src="scripts/index.js"></script>
 
-    <ons-tabbar class="tabbar-color">
+                        <div  class="battery-container" ng-click="storeCapacity()">
+							<div class="battery-row">
+								<span onclick="changeText(this)" id="capacity-text" class="capacity" >Spara Kapacitet</span>
+								<div class="animate-switch-container" ng-switch on="capacity">
+								
+									<img ng-switch-when="active" src="images/battery-01.svg" width="100px" />
+									<img ng-switch-when="feeling" src="images/battery-02.svg" width="100px" />
+									<img ng-switch-when="logical" src="images/battery-03.svg" width="100px" />
+									<img ng-switch-default src="images/battery-04.svg" width="100px" />
+								</div>
+							</div>	
+                        </div>	
+
+	
+    <ons-tabbar class="tabbar-color">	
         <ons-tab active="true" page="home.html">
 				<div class="tab">
 					<!-- <ons-icon icon="ion-home" class="tab-icon"></ons-icon> -->
@@ -258,7 +272,8 @@
                 <div class="tab-label">Trend</div>
             </div>
         </ons-tab>
-    </ons-tabbar>
+    </ons-tabbar>	
+	
     <ons-template id="popover.html">
         <ons-popover direction="down left" cancelable>
             <div style="text-align: center;">
@@ -354,18 +369,21 @@
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
-                    <ons-list-item>
-                        <div class="battery-container" ng-click="storeCapacity()">
-                            <div class="animate-switch-container" ng-switch on="capacity">
-                                <img ng-switch-when="active" src="images/battery-01.svg" width="240px" />
-                                <img ng-switch-when="feeling" src="images/battery-02.svg" width="240px" />
-                                <img ng-switch-when="logical" src="images/battery-03.svg" width="240px" />
-                                <img ng-switch-default src="images/battery-04.svg" width="240px" />
-                            </div>
-                        </div>
-                    </ons-list-item>
+
+					<ons-list-item class="contact">
+							<h3>Ironcoaching AB</h3>
+						<p><b>Jyrki Kinnunen</b><br>
+						Verkställande Direktör | Kapacitetscoach<br>
+						<a href="tel:+46735115669">tel +4673 5115 669</a>
+						<a href="mailto:info@ironcoaching.se">info@ironcoaching.se</a><br></p>
+					</ons-list-item>
+
 
                 </ons-list>
+				
+            <ons-list style="margin-top: 10px">
+
+            </ons-list>				
 
             </ons-page>
         </ons-navigator>
@@ -381,9 +399,32 @@
                 <ons-list-item>
                     <line-chart data="capacityStorage" height="420px"></line-chart>
                 </ons-list-item>
+					<ons-list-item class="contact">
+							<h3>Ironcoaching AB</h3>
+						<p><b>Jyrki Kinnunen</b><br>
+						Verkställande Direktör | Kapacitetscoach<br>
+						<a href="tel:+46735115669">tel +4673 5115 669</a>
+						<a href="mailto:info@ironcoaching.se">info@ironcoaching.se</a><br></p>
+					</ons-list-item>				
             </ons-list>
 
         </ons-page>
     </ons-template>
+	
+	<script>
+	function changeText(t)	{
+		if (t.innerHTML == "capacitet sparad") {
+			t.className = "capacity";
+			t.innerHTML = "spara capacitet";
+		}	else {
+			t.className = "capacity-click";
+			t.innerHTML = "capacitet sparad";
+		}
+
+	}
+	
+
+	
+	</script>
 </body>
 </html>

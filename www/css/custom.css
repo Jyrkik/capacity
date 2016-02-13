@@ -30,11 +30,63 @@ ons-icon 						{  opacity: 0.8;}
 
 
 ons-tab:focus				{background-color:red;}
-.tab-bar					{background-color:#fa1bbb;color:white; }
+.tab-bar					{color:white;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1c1c1c+0,353535+55 */
+background: rgb(28,28,28); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(28,28,28,1) 0%, rgba(53,53,53,1) 55%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(28,28,28,1) 0%,rgba(53,53,53,1) 55%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(28,28,28,1) 0%,rgba(53,53,53,1) 55%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c1c1c', endColorstr='#353535',GradientType=0 ); /* IE6-9 */
+ }
+.tab-bar__button			{border-top:1px solid #565656;}
 .tab-icon , .tab-icon, :checked + .tab-bar__button	{color:white;}
 .tab-label					{color:white;font-family: Lato, Helvetica, Sans-Sherif !important;font-size:14px !important;line-height:14px !important;}
-:checked + .tab-bar__button 	{background-color:#353535;color:#fa1bbb;}
+:checked + .tab-bar__button 	{background-color:#353535;color:#fa1bbb;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bc009a+0,fa1bbb+55 */
+background: rgb(188,0,154); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(188,0,154,1) 0%, rgba(250,27,187,1) 55%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(188,0,154,1) 0%,rgba(250,27,187,1) 55%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(188,0,154,1) 0%,rgba(250,27,187,1) 55%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bc009a', endColorstr='#fa1bbb',GradientType=0 ); /* IE6-9 */
 
+}
+
+
+/* capacity meter */
+.battery-container			{width:100%;position:absolute;bottom:49px;z-index:1000;background-color:#353535;text-align:center;padding:8px 0px 4px 0px;background: rgba(25, 25, 25, .95);} 
+.battery-row				{margin-left:auto;margin-right:auto;width:280px;}
+.capacity					{float:left;text-transform:uppercase;font-family: Lato, Helvetica, Sans-Sherif !important;font-size:14px;font-weight:bold;
+background-color: #FA1BBB;
+color:white;
+margin-top:4px;
+border-radius: 3px;
+padding: 5px 7px 5px 7px;
+width:148px;
+border: 1px solid #7f0568; 
+}
+.capacity-click					{float:left;text-transform:uppercase;font-family: Lato, Helvetica, Sans-Sherif !important;font-size:14px;font-weight:bold;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1c1c1c+0,474747+55 */
+background: rgb(28,28,28); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(28,28,28,1) 0%, rgba(71,71,71,1) 55%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(28,28,28,1) 0%,rgba(71,71,71,1) 55%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(28,28,28,1) 0%,rgba(71,71,71,1) 55%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c1c1c', endColorstr='#474747',GradientType=0 ); /* IE6-9 */
+
+border: 1px solid #707070; 
+color:white;
+margin-top:4px;
+border-radius: 3px;
+padding: 5px 7px 5px 7px;
+width:148px;}
+
+.spara-button			{float:left;}
+
+/*contact */
+.contact	{padding-bottom:60px;text-align:center;}
+.contact p	{line-height:25px;margin:2px 0px 10px 0px;font-family:"Lato", Helvetica, Sans-Sherif;}
+.contact a	{text-decoration:none;color:#Fa1bbb;font-style:italic;}
+.contact a:visited	{}	
+.contact h3	{margin:5px 0px 2px 0px;color:#FA1bbb;font-family:"Lato", Helvetica, Sans-Sherif;}
 
 /* Trend page */
 
