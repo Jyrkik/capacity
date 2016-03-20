@@ -22,157 +22,8 @@
     <link rel="stylesheet" type="text/css" href="lib/onsen/css/custom/fonts/flaticon.css">
     <link rel="stylesheet" type="text/css" href="lib/onsen/css/custom/default.css">
     <link rel="stylesheet" href="lib/angular/angular-csp.css" />
-	
-	<link rel="stylesheet" type="text/css" href="css/custom.css" />
-
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
     <title>Kapacity</title>
-
-    <style>
-        .tab {
-            line-height: 1;
-        }
-
-        .tab-icon {
-            font-size: 24px;
-            padding: 0;
-            margin: 0;
-            vertical-align: top;
-            line-height: 28px;
-        }
-
-        .tab-label {
-            line-height: 11px;
-            vertical-align: top;
-            font-size: 11px;
-        }
-
-        .profile-wrapper {
-            padding: 16px 10px 0 10px;
-        }
-
-        .profile-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 100%;
-            -webkit-border-radius: 100%;
-            background-color: #ccc;
-        }
-
-        .profile-name {
-            font-size: 18px;
-            padding: 4px 0 2px 0;
-        }
-
-        .profile-email {
-            font-size: 15px;
-            opacity: 0.4;
-        }
-
-        .settings-header {
-            font-weight: 500;
-            font-size: 14px;
-            opacity: 0.4;
-            padding: 10px 0 0px 10px;
-            margin-bottom: -4px;
-        }
-
-        .settings-list {
-            margin-top: 0px;
-        }
-
-        .range-list {
-            text-align: center;
-        }
-
-        .range-wrapper .range {
-            margin-top: 7px;
-            width: 100%;
-        }
-
-        ons-carousel-item {
-            display: table;
-            text-align: center;
-        }
-
-        .item-label {
-            padding-left: 10px;
-            padding-right: 10px;
-            display: table-cell;
-            line-height: 1;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 1px 2px rgba(0,0,0,.6);
-        }
-
-        .cover-label {
-            text-align: center;
-            position: absolute;
-            width: 100%;
-            bottom: 30px;
-            color: white;
-        }
-
-        .toggler-prev {
-            pointer-events: auto;
-            text-align: left;
-            cursor: pointer;
-            position: absolute;
-            width: 50%;
-            top: 30px;
-            left: 10px;
-            color: white;
-        }
-
-        .toggler-next  {
-            pointer-events: auto;
-            text-align: right;
-            cursor: pointer;
-            position: absolute;
-            width: 50%;
-            top: 30px;
-            right: 10px;
-            color: white;
-        }
-
-        .toggler-prev > ons-icon {
-            margin-left: 10px;
-        }
-
-        .toggler-next > ons-icon {
-            margin-right: 10px;
-        }
-
-        .nv-point {
-            stroke-opacity: 1!important;
-            stroke-width: 5px!important;
-            fill-opacity: 1!important;
-        }
-
-        .tick:not(.zero) {
-            opacity: 0!important;
-        }
-
-        .nvd3 .nv-axis .zero line, .nvd3 .nv-axis line.zero {
-            stroke-opacity: 0!important;
-        }
-
-        .col {
-            padding: 4px;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        hr {
-            width: 90%;
-            color: #FFFFFF;
-            background-color: #BA2375;
-            height: 1px;
-            border: none;
-        }
-
-    </style>
-
 </head>
 
 <body ng-controller="AppController">
@@ -227,26 +78,26 @@
                     <h3>Fysisk – mat och vätska</h3>
                     <ons-row align="center">
                         <ons-col width="90px">
-                            <i class="fa fa-plus-circle fa-4x"></i>
+                            <i class="fa fa-plus-circle fa-4x" style="color: #BA2375"></i>
                         </ons-col>
                         <ons-col>Äter regelbundet 5-6 ggr om dagen. Äter rimliga portioner av hög kvalité. Dricker 1,5-2 l vatten dagligen</ons-col>
                     </ons-row>
                     <ons-row align="center">
                         <ons-col width="90px">
-                            <i class="fa fa-minus-circle fa-4x"></i>
+                            <i class="fa fa-minus-circle fa-4x" style="color: #38A9DB"></i>
                         </ons-col>
                         <ons-col>Äter oregelbundet. För mycket eller för lite mat. Dricker inte alls vatten.</ons-col>
                     </ons-row>
                     <h3>Psykisk – kvalitét av sociala relationer</h3>
                     <ons-row align="center">
                         <ons-col width="90px">
-                            <i class="fa fa-plus-circle fa-4x"></i>
+                            <i class="fa fa-plus-circle fa-4x" style="color: #BA2375"></i>
                         </ons-col>
                         <ons-col>Väl fungerande relationer. Lätt att umgås med olika personligheter. Du får energi av dina sociala.</ons-col>
                     </ons-row>
                     <ons-row align="center">
                         <ons-col width="90px">
-                            <i class="fa fa-minus-circle fa-4x"></i>
+                            <i class="fa fa-minus-circle fa-4x" style="color: #38A9DB"></i>
                         </ons-col>
                         <ons-col>Konfliktfyllda och bråkiga relationer. Har svårt att komma överens med andra människor.</ons-col>
                     </ons-row>
@@ -393,21 +244,27 @@
                 <ons-list class="range-list" style="margin-bottom: 20px">
                     <ons-list-item>
                         <ons-row>
-                            <ons-col width="40px">
-                                <ons-icon icon="fa-cutlery" class="lower" ng-click="popover.show($event)"></ons-icon>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-cutlery" class="lower" style="color: #38A9DB" ng-click="popover.show($event)"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.nutritionQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                            </ons-col>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-cutlery" class="lower" style="padding-left: 5px; color: #BA2375" ng-click="popover.show($event)"></ons-icon>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item>
                         <ons-row>
-                            <ons-col width="40px">
-                                <ons-icon icon="fa-users" class="lower"></ons-icon>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-users" class="lower" style="color: #38A9DB"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.relationshipQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                            </ons-col>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-users" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
@@ -416,41 +273,53 @@
                             <ons-col></ons-col>
                         </ons-row>
                         <ons-row>
-                            <ons-col width="40px">
-                                <ons-icon icon="fa-heartbeat" class="lower"></ons-icon>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-heartbeat" class="lower" style="color: #38A9DB"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.exerciseQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
                             </ons-col>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-heartbeat" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                            </ons-col>
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item>
                         <ons-row>
-                            <ons-col width="40px">
-                                <ons-icon icon="fa-child" class="lower"></ons-icon>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-child" class="lower" style="color: #38A9DB"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.challengeAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
                             </ons-col>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-child" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                            </ons-col>
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item>
                         <ons-row>
-                            <ons-col width="40px">
-                                <ons-icon icon="fa-bed" class="lower"></ons-icon>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-bed" class="lower" style="color: #38A9DB"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.restAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
                             </ons-col>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-bed" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                            </ons-col>
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item>
                         <ons-row>
-                            <ons-col width="40px">
-                                <ons-icon icon="fa-pause" class="lower"></ons-icon>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-pause" class="lower" style="color: #38A9DB"></ons-icon>
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.relaxAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                            </ons-col>
+                            <ons-col width="30px">
+                                <ons-icon icon="fa-pause" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
