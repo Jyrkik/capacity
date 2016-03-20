@@ -7,9 +7,14 @@
 
     <script src="scripts/platformOverrides.js"></script>
     <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/ngStorage.js"></script>
+    <script src="lib/angular/ng-persist.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
     <script src="lib/3d/js/d3.min.js"></script>
     <script src="lib/3d/js/nv.d3.min.js"></script>
+
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
 
     <link rel="stylesheet" type="text/css" href="lib/3d/css/nv.d3.min.css">
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
@@ -20,159 +25,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="css/custom.css" />
 
-    <title>Capacity</title>
-
-    <script>
-        angular.module('app', ['onsen']);
-
-        angular.module('app').controller('AppController', function ($scope, $window) {
-
-            $scope.capacityStorage = angular.fromJson($window.localStorage.getItem('CAPACITY_STORAGE') || '[{"key": "Data", "values": []}]');
-
-            $scope.capacityModel = {
-                nutritionQuality: 4,
-                relationshipQuality: 4,
-                exerciseQuality: 4,
-                challengeAmount: 4,
-                restAmount: 4,
-                relaxAmount: 4
-            };
-
-            var totalCapacity = 64;
-
-            ons.ready(function() {
-                ons.createPopover('popover.html', {parentScope: $scope}).then(function(popover) {
-                    $scope.popover = popover;
-                });
-            });
-
-            $scope.calculateCapacity = function () {
-                totalCapacity =
-                        ((Number($scope.capacityModel.nutritionQuality) + Number($scope.capacityModel.relationshipQuality)) / 2) *
-                        ((Number($scope.capacityModel.exerciseQuality) + Number($scope.capacityModel.challengeAmount)) / 2) *
-                        ((Number($scope.capacityModel.restAmount) + Number($scope.capacityModel.relaxAmount)) / 2);
-
-                if (totalCapacity >= 513){
-                    $scope.capacity = "active";
-                } else if (totalCapacity >= 346){
-                    $scope.capacity = "feeling";
-                } else if (totalCapacity >= 126){
-                    $scope.capacity = "logical";
-                } else {
-                    $scope.capacity = "physical";
-                }
-
-            };
-
-            $scope.storeCapacity = function() {
-
-                var today = new Date();
-                if ($scope.capacityStorage[0].values.length > 0){
-                    $scope.capacityStorage[0].values.forEach(function(value){
-                        value.x  = new Date(value.x - 24*1000*60*60);
-                    });
-                }
-
-                $scope.capacityStorage[0].values.push({x: today, y: totalCapacity});
-                $window.localStorage.setItem('CAPACITY_STORAGE', angular.toJson($scope.capacityStorage));
-            };
-
-            $scope.clearData = function() {
-                $window.localStorage.removeItem('CAPACITY_STORAGE');
-            };
-
-        });
-
-        angular.module('app').factory('nv', function() {
-            return nv;
-        }).factory('d3', function() {
-            return d3;
-        });
-
-        angular.module('app').directive('lineChart', ['d3', 'nv', function(d3, nv) {
-            return {
-                restrict: 'E',
-                scope: {
-                    data: '=',
-                    height: '@',
-                    width: '@'
-                },
-
-                template: '<svg ng-attr-height="{{ height }}" ng-attr-width="{{ width }}"></svg>',
-                link: function(scope, element) {
-                    var svg = element.find('svg'),
-                            chart;
-
-                    var draw_background_fill = function (from, to, color) {
-                        var low_limit = chart.yAxis.scale()(to);
-                        var upper_limit = chart.yAxis.scale()(from);
-
-                        var rect_background = document.getElementsByClassName("nv-background")[0].firstChild;
-
-                        d3.select('.nv-groups').append("rect")
-                                .attr("x", 0)
-                                .attr("y", low_limit)
-                                .attr("width", rect_background.getAttribute('width'))
-                                .attr("height", upper_limit - low_limit)
-                                .attr("fill", color);
-                    };
-
-                    var update = function() {
-
-                        d3.select(svg[0])
-                                .datum(scope.data)
-                                .call(chart);
-
-                        draw_background_fill(26, 125, "rgba(56,169,219, 0.3)");
-                        draw_background_fill(126, 345, "rgba(56,183,44, 0.3)");
-                        draw_background_fill(346, 513, "rgba(185,120,35, 0.3)");
-                        draw_background_fill(514, 1000, "rgba(186,35,117, 0.3)");
-                    };
-
-                    scope.$watch(function() { return angular.toJson(scope.data); }, function() {
-                        if (chart) {
-                            update();
-                        }
-                    });
-
-                    scope.$on('chartinit', update);
-
-                    nv.addGraph(function() {
-
-                        chart = nv.models.lineChart()
-                                .showLegend(false)
-                                .showYAxis(true)
-                                .showXAxis(true)
-                                .forceY([64,1000]);
-
-                        chart.xAxis
-                                .axisLabel('Date')
-                                .rotateLabels(-90)
-                                .tickFormat(function(d) {
-                                    return d3.time.format('%d-%m')(new Date(d))
-                                });
-
-                        chart.yAxis
-                                .axisLabel('Capacity')
-                                .tickFormat(d3.format('d'));
-
-                        chart.legend.margin({top: 5, right: 0, bottom: 10, left: 0});
-                        chart.margin({top:10,bottom:100});
-
-                        chart.xScale(d3.time.scale());
-
-                        nv.utils.windowResize(function() {
-                            chart.update()
-                        });
-
-                        scope.$emit('chartinit');
-
-                        return chart;
-                    });
-                }
-            }
-        }]);
-    </script>
+    <title>Kapacity</title>
 
     <style>
         .tab {
@@ -236,6 +89,88 @@
             width: 100%;
         }
 
+        ons-carousel-item {
+            display: table;
+            text-align: center;
+        }
+
+        .item-label {
+            padding-left: 10px;
+            padding-right: 10px;
+            display: table-cell;
+            line-height: 1;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,.6);
+        }
+
+        .cover-label {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            bottom: 30px;
+            color: white;
+        }
+
+        .toggler-prev {
+            pointer-events: auto;
+            text-align: left;
+            cursor: pointer;
+            position: absolute;
+            width: 50%;
+            top: 30px;
+            left: 10px;
+            color: white;
+        }
+
+        .toggler-next  {
+            pointer-events: auto;
+            text-align: right;
+            cursor: pointer;
+            position: absolute;
+            width: 50%;
+            top: 30px;
+            right: 10px;
+            color: white;
+        }
+
+        .toggler-prev > ons-icon {
+            margin-left: 10px;
+        }
+
+        .toggler-next > ons-icon {
+            margin-right: 10px;
+        }
+
+        .nv-point {
+            stroke-opacity: 1!important;
+            stroke-width: 5px!important;
+            fill-opacity: 1!important;
+        }
+
+        .tick:not(.zero) {
+            opacity: 0!important;
+        }
+
+        .nvd3 .nv-axis .zero line, .nvd3 .nv-axis line.zero {
+            stroke-opacity: 0!important;
+        }
+
+        .col {
+            padding: 4px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        hr {
+            width: 90%;
+            color: #FFFFFF;
+            background-color: #BA2375;
+            height: 1px;
+            border: none;
+        }
+
     </style>
 
 </head>
@@ -244,36 +179,204 @@
     <script src="cordova.js"></script>
     <script src="scripts/index.js"></script>
 
-                        <div  class="battery-container" ng-click="storeCapacity()">
-							<div class="battery-row">
-								<span onclick="changeText(this)" id="capacity-text" class="capacity" >Spara Kapacitet</span>
-								<div class="animate-switch-container" ng-switch on="capacity">
-								
-									<img ng-switch-when="active" src="images/battery-01.svg" width="100px" />
-									<img ng-switch-when="feeling" src="images/battery-02.svg" width="100px" />
-									<img ng-switch-when="logical" src="images/battery-03.svg" width="100px" />
-									<img ng-switch-default src="images/battery-04.svg" width="100px" />
-								</div>
-							</div>	
-                        </div>	
-
-	
     <ons-tabbar class="tabbar-color">	
-        <ons-tab active="true" page="home.html">
-				<div class="tab">
-					<!-- <ons-icon icon="ion-home" class="tab-icon"></ons-icon> -->
-					<div class="tab-label">Hur lyckades<br> du igår?</div>
-				</div>	
+        <ons-tab page="home.html">
+            <div class="tab">
+                <div class="tab-label">Hur lyckades<br> du igår?</div>
+            </div>
         </ons-tab>
 
         <ons-tab page="settings.html">
             <div class="tab">
-                 <!-- <ons-icon icon="ion-gear-a" class="tab-icon"></ons-icon> -->
-                <div class="tab-label">Trend</div>
+                 <div class="tab-label">Trend</div>
             </div>
         </ons-tab>
-    </ons-tabbar>	
-	
+
+        <ons-tab active="true" page="help.html">
+            <div class="tab">
+                <div class="tab-label">Help</div>
+            </div>
+        </ons-tab>
+    </ons-tabbar>
+
+    <ons-template id="help.html">
+        <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 20px; margin-top: 70px">Kapacitetsmätning</h1>
+
+                    <p>Din kapacitet är mått på dina krafter. Kapaciteten består av fysisk, psykisk,
+                    social och etisk kapacitet</p>
+
+                    <p>Kapacitetsmätningen ger dig insikt och förståelse hur du kan påverka och
+                    bestämma över dina krafter.</p>
+
+                    <p>Genom att göra mätningen veckovis för du snart en uppfattning hur du kan bli
+                    kaptenen av ditt liv!</p>
+
+                    <p>Gör en subjektiv uppskattning på din
+                        kapacitet genom att uppskatta din energi,
+                        dina utmaningar och återhämtning genom
+                        att välja en passande värdering på
+                        respektive mått.</p>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 10px; margin-top: 20px">Energi</h1>
+                    <h3>Fysisk – mat och vätska</h3>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-plus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Äter regelbundet 5-6 ggr om dagen. Äter rimliga portioner av hög kvalité. Dricker 1,5-2 l vatten dagligen</ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-minus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Äter oregelbundet. För mycket eller för lite mat. Dricker inte alls vatten.</ons-col>
+                    </ons-row>
+                    <h3>Psykisk – kvalitét av sociala relationer</h3>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-plus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Väl fungerande relationer. Lätt att umgås med olika personligheter. Du får energi av dina sociala.</ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-minus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Konfliktfyllda och bråkiga relationer. Har svårt att komma överens med andra människor.</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 10px; margin-top: 20px">Utmaningar</h1>
+                    <h3>Fysiska – träning och fysisk aktivitet</h3>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-plus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Din fysisk aktivitet och träning har hälsofrämjande effekt på din hälsa.</ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-minus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Du rör dig inte mer än nödvändigt för att ta dig fram.</ons-col>
+                    </ons-row>
+                    <h3>Psykiska– antalet roller i ditt liv och livskontroll</h3>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-plus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Du känner att du är i kontroll och styr ditt liv framgångsrikt.</ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-minus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Ditt liv känns som okontrollerbar kaos och du kan inte påverka förloppet</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 10px; margin-top: 20px">Återhämtning</h1>
+                    <h3>Fysisk – Sömn och vila</h3>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-plus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Du vaknar pigg och energisk varje morgon. Du känner dig utvilad och sover regelbundna tider.</ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-minus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Du vaknar trött och sliten varje morgon. Du sover dåligt samt oregelbundna tider.</ons-col>
+                    </ons-row>
+                    <h3>Psykisk – avkoppling</h3>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-plus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Du kan ta avkopplande pauserdagligen med gott samvete.</ons-col>
+                    </ons-row>
+                    <ons-row align="center">
+                        <ons-col width="90px">
+                            <i class="fa fa-minus-circle fa-4x"></i>
+                        </ons-col>
+                        <ons-col>Du har ingen tid eller förmåga att koppla av.</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 20px; margin-top: 70px">Fysisk Kapacitetsnivå</h1>
+                    <ons-row>
+                        <ons-col>
+                            <img src="images/battery-04.svg" width="200px">
+                        </ons-col>
+                    </ons-row>
+                    <ons-row>
+                        <ons-col>Den här kapacitetsnivån möjliggör bas fuktionen av kroppen, ämnesomsättningen och att en kan tag sig till mötet. På den här nivån en klara av endast vardagsrutiner och sina skyldigheter.</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 20px; margin-top: 70px">Känslo Kapacitetsnivå</h1>
+                    <ons-row>
+                        <ons-col>
+                            <img src="images/battery-03.svg" width="200px">
+                        </ons-col>
+                    </ons-row>
+                    <ons-row>
+                        <ons-col>Den här kapacitetsnivån påverkar stimulans på känslörna starkare än vad de borde göra. Man reagerar på stimulans med känslorna utan att använda logiskt tänkande som känslofilter. Personlig kommunikation på den här nivån är sällan konstruktivt. Ofta hör en vad en vill höra istället för att höra det some någon vill berätta för en. Detta leder till allvarliga problem inom sociala sammanhang. Risken för missförstånd genom att höra vad man vill höra ökar betydligt.</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 20px; margin-top: 70px">Logisk Kapacitetsnivå</h1>
+                    <ons-row>
+                        <ons-col>
+                            <img src="images/battery-02.svg" width="200px">
+                        </ons-col>
+                    </ons-row>
+                    <ons-row>
+                        <ons-col>Den här kapacitetsnivån möjliggör det logiska tänkandet, problemlösningen och en reaferar på stimulans med intelligens. En kan överväga sina svar och hur de påverkar andra människor. Det går att planera livet och arbetet, men är fortfarande med planenring och organisering istället för verkställande av sina planer.</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">
+                    <h1 style="padding-bottom: 20px; margin-top: 70px">Verkställande kapacitetsnivå</h1>
+                    <ons-row>
+                        <ons-col>
+                            <img src="images/battery-01.svg" width="200px">
+                        </ons-col>
+                    </ons-row>
+                    <ons-row>
+                        <ons-col>Den här nivån kräver att en lever ett en lever ett balanserat liv. På den här nivån saker som påverkar känslorna kan lättare omarbetas med intelligens och tankar och idèer konkretiseras till åtgårder. Kapaciteten räcker utöver arbetet även för aktivt fritidsliv.</ons-col>
+                    </ons-row>
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-cover>
+                <div class="toggler-prev" onclick="carousel.prev();">
+                    <ons-icon icon="ion-chevron-left" class="lower"></ons-icon>
+                </div>
+                <div class="toggler-next" onclick="carousel.next();">
+                    <ons-icon icon="ion-chevron-right" class="lower"></ons-icon>
+                </div>
+            </ons-carousel-cover>
+        </ons-carousel>
+    </ons-template>
+
     <ons-template id="popover.html">
         <ons-popover direction="down left" cancelable>
             <div style="text-align: center;">
@@ -287,7 +390,7 @@
                 <div class="headline">
                     <span class="header-text"><div><img class="ic-logo" src="images/ic-logo.svg">Hur Lyckades<br> du Igår?</div></span>
                 </div>
-                <ons-list class="range-list">
+                <ons-list class="range-list" style="margin-bottom: 20px">
                     <ons-list-item>
                         <ons-row>
                             <ons-col width="40px">
@@ -295,9 +398,6 @@
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.nutritionQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
-                            </ons-col>
-                            <ons-col width="40px">
-                                <span class="notification">{{capacityModel.nutritionQuality}}</span>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
@@ -308,9 +408,6 @@
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.relationshipQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
-                            </ons-col>
-                            <ons-col width="40px">
-                                <span class="notification">{{capacityModel.relationshipQuality}}</span>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
@@ -325,9 +422,6 @@
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.exerciseQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
                             </ons-col>
-                            <ons-col width="40px">
-                                <span class="notification">{{capacityModel.exerciseQuality}}</span>
-                            </ons-col>
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item>
@@ -337,9 +431,6 @@
                             </ons-col>
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.challengeAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
-                            </ons-col>
-                            <ons-col width="40px">
-                                <span class="notification">{{capacityModel.challengeAmount}}</span>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>
@@ -351,9 +442,6 @@
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.restAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
                             </ons-col>
-                            <ons-col width="40px">
-                                <span class="notification">{{capacityModel.restAmount}}</span>
-                            </ons-col>
                         </ons-row>
                     </ons-list-item>
                     <ons-list-item>
@@ -364,67 +452,51 @@
                             <ons-col class="range-wrapper">
                                 <input ng-model="capacityModel.relaxAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
                             </ons-col>
-                            <ons-col width="40px">
-                                <span class="notification">{{capacityModel.relaxAmount}}</span>
-                            </ons-col>
                         </ons-row>
                     </ons-list-item>
-
-					<ons-list-item class="contact">
-							<h3>Ironcoaching AB</h3>
-						<p><b>Jyrki Kinnunen</b><br>
-						Verkställande Direktör | Kapacitetscoach<br>
-						<a href="tel:+46735115669">tel +4673 5115 669</a>
-						<a href="mailto:info@ironcoaching.se">info@ironcoaching.se</a><br></p>
-					</ons-list-item>
-
-
                 </ons-list>
-				
-            <ons-list style="margin-top: 10px">
 
-            </ons-list>				
-
+                <ons-bottom-toolbar class="battery-container">
+                    <div class="battery-row">
+                        <span ng-hide="dailyCapacitySaved" class="capacity" ng-click="storeCapacity()">Spara Kapacitet</span>
+                        <span ng-show="dailyCapacitySaved" class="capacity-click">Kapacitet Sparad</span>
+                        <div class="animate-switch-container" ng-switch on="capacity">
+                            <img ng-switch-when="active" src="images/battery-01.svg" width="100px" />
+                            <img ng-switch-when="feeling" src="images/battery-02.svg" width="100px" />
+                            <img ng-switch-when="logical" src="images/battery-03.svg" width="100px" />
+                            <img ng-switch-default src="images/battery-04.svg" width="100px" />
+                        </div>
+                    </div>
+                </ons-bottom-toolbar>
             </ons-page>
         </ons-navigator>
     </ons-template>
 
     <ons-template id="settings.html">
-        <ons-page>
+        <ons-page style="background-color: white;">
 			<div class="headline">
-				<div class="header-text" ng-click="clearData()">Trend</div>
-			</div>				
+				<div class="header-text" ng-click="deleteData()">Trend</div>
+			</div>
+
+            <div class="card" style="background-color: white;">
+                <line-chart data="capacityStorage" height="320px" width="420px"></line-chart>
+            </div>
+            <div style="text-align:center;background-color: white;">
+                <hr>
+                <b>dina 12 senaste kapacitet-mätningar</b>
+            </div>
 
             <ons-list modifier="inset" class="settings-list">
-                <ons-list-item>
-                    <line-chart data="capacityStorage" height="420px"></line-chart>
+                <ons-list-item class="contact">
+                        <h3>Ironkapacitet AB</h3>
+                    <p><b>Jyrki Kinnunen</b><br>
+                    Verkställande Direktör | Kapacitetscoach<br>
+                    <a href="tel:+46735115669">tel +4673 5115 669</a>
+                    <a href="mailto:info@ironcoaching.se">info@ironcoaching.se</a><br></p>
                 </ons-list-item>
-					<ons-list-item class="contact">
-							<h3>Ironcoaching AB</h3>
-						<p><b>Jyrki Kinnunen</b><br>
-						Verkställande Direktör | Kapacitetscoach<br>
-						<a href="tel:+46735115669">tel +4673 5115 669</a>
-						<a href="mailto:info@ironcoaching.se">info@ironcoaching.se</a><br></p>
-					</ons-list-item>				
             </ons-list>
 
         </ons-page>
     </ons-template>
-	
-	<script>
-	function changeText(t)	{
-		if (t.innerHTML == "capacitet sparad") {
-			t.className = "capacity";
-			t.innerHTML = "spara capacitet";
-		}	else {
-			t.className = "capacity-click";
-			t.innerHTML = "capacitet sparad";
-		}
-
-	}
-	
-
-	
-	</script>
 </body>
 </html>
