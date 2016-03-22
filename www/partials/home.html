@@ -1,0 +1,103 @@
+<ons-navigator>
+    <ons-page>
+        <div class="headline">
+            <span class="header-text"><div><img class="ic-logo" src="images/ic-logo.svg">Hur Lyckades<br> du Igår?</div></span>
+        </div>
+        <ons-list class="range-list" style="margin-bottom: 20px">
+            <ons-list-item>
+                <ons-row>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-cutlery" class="lower" style="color: #38A9DB" ng-click="showDialog('Matkvalitèt', 'beskrivning')"></ons-icon>
+                    </ons-col>
+                    <ons-col class="range-wrapper">
+                        <input ng-model="capacityModel.nutritionQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                    </ons-col>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-cutlery" class="lower" style="padding-left: 5px; color: #BA2375" ng-click="popover.show($event)"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+            <ons-list-item>
+                <ons-row>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-users" class="lower" style="color: #38A9DB"></ons-icon>
+                    </ons-col>
+                    <ons-col class="range-wrapper">
+                        <input ng-model="capacityModel.relationshipQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                    </ons-col>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-users" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+            <ons-list-item>
+                <ons-row>
+                    <ons-col></ons-col>
+                </ons-row>
+                <ons-row>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-heartbeat" class="lower" style="color: #38A9DB"></ons-icon>
+                    </ons-col>
+                    <ons-col class="range-wrapper">
+                        <input ng-model="capacityModel.exerciseQuality" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                    </ons-col>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-heartbeat" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+            <ons-list-item>
+                <ons-row>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-child" class="lower" style="color: #38A9DB"></ons-icon>
+                    </ons-col>
+                    <ons-col class="range-wrapper">
+                        <input ng-model="capacityModel.challengeAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                    </ons-col>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-child" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+            <ons-list-item>
+                <ons-row>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-bed" class="lower" style="color: #38A9DB"></ons-icon>
+                    </ons-col>
+                    <ons-col class="range-wrapper">
+                        <input ng-model="capacityModel.restAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                    </ons-col>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-bed" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+            <ons-list-item>
+                <ons-row>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-pause" class="lower" style="color: #38A9DB"></ons-icon>
+                    </ons-col>
+                    <ons-col class="range-wrapper">
+                        <input ng-model="capacityModel.relaxAmount" type="range" min="4" max="10" class="range" ng-change="calculateCapacity()">
+                    </ons-col>
+                    <ons-col width="30px">
+                        <ons-icon icon="fa-pause" class="lower" style="padding-left: 5px; color: #BA2375"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+
+        <ons-bottom-toolbar class="battery-container">
+            <div class="battery-row">
+                <span ng-hide="dailyCapacitySaved" class="capacity" ng-click="storeCapacity()">Spara Kapacitet</span>
+                <span ng-show="dailyCapacitySaved" class="capacity-click">Kapacitet Sparad</span>
+                <div class="animate-switch-container" ng-switch on="capacity">
+                    <img ng-switch-when="active" src="images/battery-01.svg" width="100px" />
+                    <img ng-switch-when="feeling" src="images/battery-02.svg" width="100px" />
+                    <img ng-switch-when="logical" src="images/battery-03.svg" width="100px" />
+                    <img ng-switch-default src="images/battery-04.svg" width="100px" />
+                </div>
+            </div>
+        </ons-bottom-toolbar>
+    </ons-page>
+</ons-navigator>

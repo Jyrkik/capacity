@@ -2,26 +2,36 @@ angular.module('app', ['onsen','ngStorage','ng-persist']);
 
 angular.module('app').controller('AppController', function ($scope, $window, $persist) {
 
-    $persist.get('capacity', 'CAPACITY_STORAGE', '{"key": "Kapacitet", "values": []}').then(function (value) {
-        storage_object = angular.fromJson(value);
-        storage_object.values.forEach(function(entry, index, theArray){
-            theArray[index] = {x: new Date(entry.x), y: entry.y, category: getCapacityClass(entry.y)}
+    //API
+    $scope.calculateCapacity = calculateCapacity;
+    $scope.storeCapacity = storeCapacity;
+    $scope.showDialog = showDialog;
+
+    init();
+
+    function init(){
+        $persist.get('capacity', 'CAPACITY_STORAGE', '{"key": "Kapacitet", "values": []}').then(function (value) {
+            storage_object = angular.fromJson(value);
+            storage_object.values.forEach(function(entry, index, theArray){
+                theArray[index] = {x: new Date(entry.x), y: entry.y, category: getCapacityClass(entry.y)}
+            });
+
+            $scope.capacityStorage = storage_object;
         });
 
-        $scope.capacityStorage = storage_object;
-    });
+        $scope.capacityModel = {
+            nutritionQuality: 4,
+            relationshipQuality: 4,
+            exerciseQuality: 4,
+            challengeAmount: 4,
+            restAmount: 4,
+            relaxAmount: 4
+        };
 
-    $scope.capacityModel = {
-        nutritionQuality: 4,
-        relationshipQuality: 4,
-        exerciseQuality: 4,
-        challengeAmount: 4,
-        restAmount: 4,
-        relaxAmount: 4
-    };
+        $scope.dailyCapacitySaved = false;
+    }
 
     var totalCapacity = 64;
-    $scope.dailyCapacitySaved = false;
 
     document.addEventListener('ons-carousel:postchange', function(event){
         document.querySelectorAll('.indicators')[event.lastActiveIndex].style.color = 'white';
@@ -45,8 +55,8 @@ angular.module('app').controller('AppController', function ($scope, $window, $pe
     });
 
     ons.ready(function() {
-        ons.createPopover('popover.html', {parentScope: $scope}).then(function(popover) {
-            $scope.popover = popover;
+        ons.createDialog('partials/dialog.html', {parentScope: $scope}).then(function(dialog) {
+            $scope.dialog = dialog;
         });
 
     });
@@ -63,7 +73,7 @@ angular.module('app').controller('AppController', function ($scope, $window, $pe
         }
     }
 
-    $scope.calculateCapacity = function () {
+    function calculateCapacity() {
         totalCapacity =
             ((Number($scope.capacityModel.nutritionQuality) + Number($scope.capacityModel.relationshipQuality)) / 2) *
             ((Number($scope.capacityModel.exerciseQuality) + Number($scope.capacityModel.challengeAmount)) / 2) *
@@ -80,9 +90,9 @@ angular.module('app').controller('AppController', function ($scope, $window, $pe
             $scope.capacity = "physical";
         }
 
-    };
+    }
 
-    $scope.storeCapacity = function() {
+    function storeCapacity() {
 
         var today = new Date();
         if ($scope.capacityStorage.values.length > 0){
@@ -101,12 +111,12 @@ angular.module('app').controller('AppController', function ($scope, $window, $pe
             $scope.dailyCapacitySaved = true;
         });
 
-    };
+    }
 
-    $scope.deleteData = function(){
-        $persist.remove('capacity', 'CAPACITY_STORAGE').then(function () {
-                console.log("capacity deleted");
-        });
+    function showDialog(title, description){
+        $scope.dialogTitle = title;
+        $scope.dialogDescription = description;
+        $scope.dialog.show();
     }
 
 });
