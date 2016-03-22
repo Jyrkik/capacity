@@ -16,7 +16,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
         var isIos = false;
         var isAndroid = false;
 
-        if (!window.device && !window.Keychain) {
+        if (!window.cordova && !window.device && !window.Keychain) {
             isBrowser = true;
         } else {
             isAndroid = window.device.platform === "Android";

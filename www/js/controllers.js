@@ -1,4 +1,4 @@
-angular.module('app', ['onsen','ngStorage','ng-persist']);
+angular.module('app', ['ngStorage','ng-persist', 'onsen']);
 
 angular.module('app').controller('AppController', function ($scope, $window, $persist) {
 

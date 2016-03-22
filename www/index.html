@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app" ng-csp>
+<html id="root" lang="en" ng-csp>
 <head>
     <meta charset="utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
     <script src="js/index.js"></script>
 
     <ons-tabbar class="tabbar-color">	
-        <ons-tab page="partials/home.html">
+        <ons-tab active="true" page="partials/home.html">
             <div class="tab">
                 <div class="tab-label">Hur lyckades<br> du igår?</div>
             </div>
@@ -43,11 +43,12 @@
             </div>
         </ons-tab>
 
-        <ons-tab active="true" page="partials/usage.html">
+        <ons-tab page="partials/usage.html">
             <div class="tab">
                 <div class="tab-label">Help</div>
             </div>
         </ons-tab>
     </ons-tabbar>
+
 </body>
 </html>
