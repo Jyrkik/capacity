@@ -12,7 +12,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
     var $persist = function ($q, $localStorage) {
 
-        var isBrowser = false;
+        var isBrowser = true;
         var isIos = false;
         var isAndroid = false;
 
