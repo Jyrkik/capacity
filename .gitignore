@@ -6,6 +6,8 @@
 *.class
 
 platforms/**
+plugins/**
+node_modules/**
 
 bin/
 gen/
